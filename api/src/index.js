@@ -10,17 +10,26 @@ app.use(express.json());
 // controllers
 import auth from "./controllers/user.controller.js";
 import product from "./controllers/product.controller.js";
+import cart from "./controllers/cart.controller.js";
+import order from "./controllers/order.controller.js";
 
 // home route
 app.get("/",(req,res)=>{
     return res.status(200).json("Welcome to shop api")
 })
 
-// authentication route
+// products 
+app.use("/api/product", product)
+
+
+// authentication 
 app.use("/api/auth", auth)
 
-// products route
-app.use("/api", product)
 
+// cart 
+app.use("/api/cart", cart)
+
+// order
+app.use("/api/order", order)
 
 export default app;
