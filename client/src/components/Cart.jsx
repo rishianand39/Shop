@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { useState } from "react";
+import axios from "axios";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -92,7 +94,74 @@ const Cart = () => {
       isNew: true,
     },
   ];
+  const [loading,setLoading]=useState(false);
+  const [payAmount,setPayAmount]=useState(1000)
 
+// Razorpay
+function loadRazorpay() {
+  const script = document.createElement('script');
+  script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+  script.onerror = () => {
+    alert('Razorpay SDK failed to load. Are you online?');
+  };
+  script.onload = async () => {
+    try {
+      setLoading(true);
+      const result = await axios.post('http://localhost:8000/api/order', {
+        amount: payAmount,
+      });
+      console.log(result)
+      const { amount, id: order_id, currency } = result.data;
+      console.log(amount, currency)
+      const options = {
+        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+        amount: amount,
+        currency: currency,
+        name: 'example name',
+        description: 'example transaction',
+        order_id: order_id,
+        handler: async function (response) {
+          let data= {
+            userId:"63ad2c0229c4cf68b32224b1",
+            products:[
+              {
+              productId:"63ad59adef87dd414822a977",
+              quantity:1
+              }
+            ],
+            amount:payAmount,
+            address:"vill+po: sehra, Dist: Patna, State: Bihar",
+            razorpay:{
+              orderId:response.razorpay_payment_id,
+              paymentId:response.razorpay_order_id,
+              signature:response.razorpay_signature,
+            }
+          }
+          const result = await axios.post('http://localhost:8000/api/place-order', data);
+        },
+        prefill: {
+          name: 'example name',
+          email: 'email@example.com',
+          contact: '3214569875',
+        },
+        notes: {
+          address: 'example address',
+        },
+        theme: {
+          color: '#80c0f0',
+        },
+      };
+
+      setLoading(false);
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+    } catch (err) {
+      alert(err);
+      setLoading(false);
+    }
+  };
+  document.body.appendChild(script);
+}
 
 
   return (
@@ -119,7 +188,7 @@ const Cart = () => {
       <Heading total>SUBTOTAL</Heading>
       <Text total>₹ 7389</Text>
       </TotalAmount>
-      <Button>PROCEED TO CHECKOUT</Button>
+      <Button disabled={loading} onClick={loadRazorpay}>PROCEED TO CHECKOUT</Button>
       <Text reset>Reset Cart</Text>
       </>
     </Wrapper>

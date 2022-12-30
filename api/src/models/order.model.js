@@ -10,7 +10,11 @@ const OrderSchema= new mongoose.Schema({
     ],
     amount:{type:Number,required:true},
     address:{type:String,required:true},
-    status:{type:String,default:"pending"}
+    razorpay:{
+        orderId:{type:String,required:true},
+        paymentId:{type:String,required:true},
+        signature:{type:String,required:true},
+    },
 },{
     timestamps:true,
     versionKey:false

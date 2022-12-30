@@ -13,7 +13,6 @@ import product from "./controllers/product.controller.js";
 import cart from "./controllers/cart.controller.js";
 import order from "./controllers/order.controller.js";
 import wishlist from "./controllers/wishlist.controller.js";
-import payment from "./controllers/payment.controller.js";
 
 // home route
 app.get("/",(req,res)=>{
@@ -29,13 +28,11 @@ app.use("/api/auth", auth)
 // cart 
 app.use("/api/cart", cart)
 
-// order
-app.use("/api/order", order)
-
 // wishlist
 app.use("/api/wishlist", wishlist)
 
-// payment
-app.use("/api/pay", payment)
+// order
+app.use("/api/order", order)
+
 
 export default app;
