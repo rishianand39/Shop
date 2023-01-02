@@ -1,3 +1,7 @@
+:root{
+    --btn-color1:#008080;
+    --btn-color2:#2879fe;
+}
 body{
     margin: 0;
 }
@@ -15,4 +19,13 @@ html{
 :target{
     outline: 2px solid red;
     outline-offset: 10px;
+}
+.active{
+    font-size:1.2rem;
+    font-weight:bold;
+    color:#2879fe;
+    border-bottom:1px solid;
+}
+.activeicon{
+    background-color:#2879fe;
 }

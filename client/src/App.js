@@ -7,6 +7,8 @@ import {
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+import Signin from "./pages/Signin";
 import Product from "./pages/Product";
 import Products from "./pages/Products";
 
@@ -27,6 +29,14 @@ const router=createBrowserRouter([
       {
         path:"/",
         element:<Home />
+      },
+      {
+        path:"/signup",
+        element:<Signup />
+      },
+      {
+        path:"/signin",
+        element:<Signin />
       },
       {
         path:"/products/:category",

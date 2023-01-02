@@ -45,7 +45,7 @@ const Center = styled.div`
   display: flex;
   gap: 25px;
   align-items: center;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 `;
 const Right = styled.div`
   display: flex;
@@ -84,24 +84,37 @@ const Navbar = () => {
   const [wishOpen,setWishOpen]=useState(false);
   const [searchOpen,setSearchOpen]=useState(false);
 
+
   document.addEventListener("click",(event)=>{
-    if(!event.target.closest(".cart") && !event.target.closest(".cartcontainer")){
-      setCartOpen(false)
+    if(cartOpen){
+      if(!event.target.closest(".cart") && !event.target.closest(".cartcontainer")){
+        setCartOpen(false)
+      }
     }
   })
 
   document.addEventListener("click",(event)=>{
-    if(!event.target.closest(".account") && !event.target.closest(".accountcontainer")){
-      setAcOpen(false)
+    if(acOpen){
+      if(!event.target.closest(".account") && !event.target.closest(".accountcontainer")){
+        setAcOpen(false)
+      }
     }
   })
 
   document.addEventListener("click",(event)=>{
-    if(!event.target.closest(".wishlist") && !event.target.closest(".wishListcontainer")){
-      setWishOpen(false)
+    if(wishOpen){
+      if(!event.target.closest(".wishlist") && !event.target.closest(".wishListcontainer")){
+        setWishOpen(false)
+      }
     }
   })
   
+  // Active tab
+  const handleActiveTab=(element)=>{
+    let current_active_tab=document.querySelector(".active")
+    current_active_tab.classList.remove("active");
+    element.classList.add("active")
+  }
 
   return (
     <Header>
@@ -111,58 +124,66 @@ const Navbar = () => {
             <Img src="/img/uk.png" alt="language flag" />
             <KeyboardArrowDownIcon />
           </Box>
-          <Box tabindex="0" className="link">
+          <Box tabindex="0" className="link" onClick={(event)=>handleActiveTab(event.target)}>
             <Link className="links" to="/products/men">
               Men
             </Link>
           </Box>
-          <Box tabIndex="1" className="link">
+          <Box tabIndex="1" className="link" onClick={(event)=>handleActiveTab(event.target)}>
             <Link className="links" to="/products/women">
               Women
             </Link>
           </Box>
-          <Box className="link">
+          <Box className="link" onClick={(event)=>handleActiveTab(event.target)}>
             <Link className="links" to="/products/children">
               Children
             </Link>
           </Box>
-          <Box className="link">
+          <Box className="link" onClick={(event)=>handleActiveTab(event.target)}>
             <Link className="links" to="/products/accessories">
               Accessories
             </Link>
           </Box>
         </Left>
-        <Center>
-          <Link className="links" to="/">
+        <Center onClick={(event)=>{
+          let current_active_tab=document.querySelector(".active")
+          current_active_tab.classList.remove("active");
+          document.querySelector(".home").classList.add("active")
+        }}>
+          <Link className="links" to="/" >
             SHOP
           </Link>
         </Center>
         <Right>
-          <Box className="link">
-            <Link className="links" to="/">
-              Homepage
+          <Box className="link" onClick={(event)=>handleActiveTab(event.target)}>
+            <Link className="links home active" to="/">
+              Home
             </Link>
           </Box>
-          <Box className="link" >
+          <Box className="link"onClick={(event)=>handleActiveTab(event.target)} >
             <Link onClick={()=>window.location.hash="#about"} className="links" >
               About
             </Link>
           </Box>
-          <Box className="link">
+          <Box className="link" onClick={(event)=>handleActiveTab(event.target)}>
             <Link onClick={()=>window.location.hash="#contact"}  className="links">
               Contact
             </Link>
           </Box>
-          <Box className="link">
-            <Link onClick={()=>window.location.hash="#stores"} className="links">
-              Stores
-            </Link>
-          </Box>
+
           <Box icons>
-            <SearchIcon className="icon search" onClick={()=>setSearchOpen(!searchOpen)}/>
-            <PersonOutlineIcon onClick={()=>setAcOpen(!acOpen)} className="icon account"/>
-            <FavoriteBorderIcon className="icon wishlist" onClick={()=>setWishOpen(!wishOpen)}/>
-            <Box className="icon cart" onClick={()=>setCartOpen(!cartOpen)}>
+            <SearchIcon className="icon search" onClick={(event)=>{
+              setSearchOpen(pre=>!pre)
+            }}/>
+            <PersonOutlineIcon onClick={(event)=>{
+              setAcOpen(pre=>!pre)
+            }} className="icon account"/>
+            <FavoriteBorderIcon className="icon wishlist" onClick={(event)=>{
+              setWishOpen(pre=>!pre)
+            }}/>
+            <Box className="icon cart" onClick={(event)=>{
+              setCartOpen(pre=>!pre)
+            }}>
               <AddShoppingCartIcon  />
               <CartCount>0</CartCount>
             </Box>

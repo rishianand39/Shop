@@ -80,8 +80,12 @@ const Account = () => {
             <Title>Welcome</Title>
             <Text>To access account and manage orders</Text>
             <ButtonCont btnholder>
-              <Button>LOGIN</Button>
+              <Link to="/signin">
+              <Button>SIGNIN</Button>
+              </Link>
+              <Link to="/signup">
               <Button>SIGNUP</Button>
+              </Link>
             </ButtonCont>
           </Box>
           <Box>

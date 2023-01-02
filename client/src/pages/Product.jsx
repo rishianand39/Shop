@@ -74,6 +74,20 @@ const AddToCart = styled.button`
   margin: 20px 0;
   cursor: pointer;
 `;
+const Buy= styled.button`
+   background-color: #2879fe;
+  color: white;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  font-weight: bold;
+  width: 200px;
+  height: 45px;
+  margin: 20px 0;
+  cursor: pointer; 
+`
 const Desc = styled.div`
   margin-top: 100px;
 `;
@@ -126,9 +140,12 @@ const Product = () => {
           {quantity}
           <Button onClick={() => setQuantity((pre) => pre + 1)}>+</Button>
         </Box>
+        <Box>
         <AddToCart>
           <AddShoppingCartIcon /> ADD TO CART
         </AddToCart>
+        <Buy>BUY NOW</Buy>
+        </Box>
         <Box>
           <Button>
             <FavoriteBorderIcon /> ADD TO WISH LIST

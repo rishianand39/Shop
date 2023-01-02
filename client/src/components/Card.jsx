@@ -1,7 +1,8 @@
 import styled from "styled-components";
 const Wrapper = styled.div`
   width: 200px;
-  height: 400px;
+  height: 430px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 `;
 const Top = styled.div`
   display: flex;
@@ -15,12 +16,18 @@ const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  background-position: center;
   position: absolute;
   &.firstImage {
     z-index: 1;
   }
 `;
-const Bottom = styled.div``;
+const Bottom = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+gap: 5px;
+`
 const Title = styled.p`
   font-size: 16px;
   font-weight: 500;
@@ -45,6 +52,15 @@ const NewSeason = styled.div`
   font-weight: 500;
   font-size: 0.8rem;
 `;
+const Button=styled.button`
+  background-color: #2879fe;
+  border: none;
+  color: white;
+  height: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 2px;
+`
 const Card = ({ id, category, title, strike, price, images, isNew }) => {
   return (
     <Wrapper>
@@ -59,6 +75,7 @@ const Card = ({ id, category, title, strike, price, images, isNew }) => {
           <Span strike>₹{strike}</Span>
           <Span>₹{price}</Span>
         </Price>
+        <Button>Add To Cart</Button>
       </Bottom>
     </Wrapper>
   );

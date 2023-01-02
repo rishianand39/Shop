@@ -2,6 +2,7 @@ import styled from "styled-components";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useState } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom"
 
 const Wrapper = styled.div`
   position: absolute;
@@ -17,13 +18,14 @@ const Wrapper = styled.div`
 `;
 const Heading = styled.h2`
   color: gray;
-  margin: 0;
+  margin-top: 0;
   font-size: 1.2rem;
 `;
 const Items = styled.div`
   display: flex;
   gap: 8px;
-  margin: 10px 0;
+  margin-bottom: 20px;
+  border:1px solid gray;
 `;
 const Title = styled.h4`
   margin: 0;
@@ -34,39 +36,46 @@ const Img = styled.img`
   height: 100%;
 `;
 const Box = styled.div`
-display: ${props=>props.desc && "flex"};
-& .remove{
-  color: red;
-  cursor: pointer;
-}
+  display: ${(props) => props.desc && "flex"};
+  & .remove {
+    color: red;
+    cursor: pointer;
+  }
 `;
 const Text = styled.p`
   font-size: 0.8rem;
   margin-top: 5px;
   color: ${(props) => props.price && "#2879fe"};
   font-size: ${(props) => props.price && "0.8rem"};
-  font-size: ${props=>props.total && "1.2rem"};
-  font-weight: ${props=>props.total && "bold"};
+  font-size: ${(props) => props.total && "1.2rem"};
+  font-weight: ${(props) => props.total && "bold"};
   font-weight: ${(props) => props.price && "bold"};
-  color: ${props=>props.reset && "red"};
-  cursor: ${props=>props.reset && "pointer"};
-
+  color: ${(props) => props.reset && "red"};
+  cursor: ${(props) => props.reset && "pointer"};
+`;
+const Buy = styled.button`
+  background-color: #2879fe;
+  font-weight: bold;
+  color: white;
+  border: none;
+  height: 30px;
+  cursor: pointer;
 `;
 const Button = styled.button`
   background-color: #2879fe;
   border: none;
   color: white;
-  width: 180px;
   height: 35px;
   font-weight: bold;
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 const TotalAmount = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 0 10px ;
-`
+  margin: 20px 0 10px;
+`;
 const Cart = () => {
   const carts = [
     {
@@ -94,102 +103,115 @@ const Cart = () => {
       isNew: true,
     },
   ];
-  const [loading,setLoading]=useState(false);
-  const [payAmount,setPayAmount]=useState(1000)
+  const [loading, setLoading] = useState(false);
+  const [payAmount, setPayAmount] = useState(1000);
+  const navigate=useNavigate()
 
-// Razorpay
-function loadRazorpay() {
-  const script = document.createElement('script');
-  script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-  script.onerror = () => {
-    alert('Razorpay SDK failed to load. Are you online?');
-  };
-  script.onload = async () => {
-    try {
-      setLoading(true);
-      const result = await axios.post('http://localhost:8000/api/order', {
-        amount: payAmount,
-      });
-      console.log(result)
-      const { amount, id: order_id, currency } = result.data;
-      console.log(amount, currency)
-      const options = {
-        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-        amount: amount,
-        currency: currency,
-        name: 'example name',
-        description: 'example transaction',
-        order_id: order_id,
-        handler: async function (response) {
-          let data= {
-            userId:"63ad2c0229c4cf68b32224b1",
-            products:[
-              {
-              productId:"63ad59adef87dd414822a977",
-              quantity:1
-              }
-            ],
-            amount:payAmount,
-            address:"vill+po: sehra, Dist: Patna, State: Bihar",
-            razorpay:{
-              orderId:response.razorpay_payment_id,
-              paymentId:response.razorpay_order_id,
-              signature:response.razorpay_signature,
-            }
-          }
-          const result = await axios.post('http://localhost:8000/api/place-order', data);
-        },
-        prefill: {
-          name: 'example name',
-          email: 'email@example.com',
-          contact: '3214569875',
-        },
-        notes: {
-          address: 'example address',
-        },
-        theme: {
-          color: '#80c0f0',
-        },
-      };
+  // Razorpay
+  function loadRazorpay() {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onerror = () => {
+      alert("Razorpay SDK failed to load. Are you online?");
+    };
+    script.onload = async () => {
+      try {
+        setLoading(true);
+        const result = await axios.post("http://localhost:8080/api/order", {
+          amount: payAmount,
+        });
+        console.log(result);
+        const { amount, id: order_id, currency } = result.data;
+        const options = {
+          key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+          amount: amount,
+          currency: currency,
+          name: "example name",
+          description: "example transaction",
+          order_id: order_id,
+          handler: async function (response) {
+            let data = {
+              userId: "63ad2c0229c4cf68b32224b1",
+              products: [
+                {
+                  productId: "63ad59adef87dd414822a977",
+                  quantity: 1,
+                },
+              ],
+              amount: payAmount,
+              address: "vill+po: sehra, Dist: Patna, State: Bihar",
+              razorpay: {
+                orderId: response.razorpay_payment_id,
+                paymentId: response.razorpay_order_id,
+                signature: response.razorpay_signature,
+              },
+            };
+            await axios.post(
+              "http://localhost:8080/api/order/place-order",
+              data
+            );
+          },
+          prefill: {
+            name: "example name",
+            email: "email@example.com",
+            contact: "3214569875",
+          },
+          notes: {
+            address: "example address",
+          },
+          theme: {
+            color: "#80c0f0",
+          },
+        };
 
-      setLoading(false);
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open();
-    } catch (err) {
-      alert(err);
-      setLoading(false);
-    }
-  };
-  document.body.appendChild(script);
-}
+        setLoading(false);
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+      } catch (err) {
+        alert(err);
+        setLoading(false);
+      }
+    };
+    document.body.appendChild(script);
 
+  }
 
   return (
     <Wrapper className="cartcontainer">
       <>
-      <Heading>Products in your cart</Heading>
-      {carts.map((cart) => (
-        <Items key={cart.id}>
-          <Img src={cart.images[1]} />
-          <Box>
-            <Title>{cart.title}</Title>
-            <Box desc>
-              <div>
-                <Text>{cart.desc.substring(0, 100)}</Text>
-                <Text price>1 * ₹{cart.price}</Text>
-              </div>
-               <DeleteOutlineIcon  className="remove" />
+        <Heading>Products in your cart</Heading>
+        {carts.map((cart) => (
+          <Items key={cart.id}>
+            <Img src={cart.images[1]} />
+            <Box>
+              <Title>{cart.title}</Title>
+              <Box desc>
+                <div>
+                  <Text>{cart.desc.substring(0, 100)}</Text>
+                  <Box
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text price>1 * ₹{cart.price}</Text>
+                    <Buy onClick={loadRazorpay}>Buy Now</Buy>
+                    <DeleteOutlineIcon className="remove" />
+                  </Box>
+                </div>
+              </Box>
             </Box>
-          </Box>
-        </Items>
-      ))}
-      <TotalAmount>
-
-      <Heading total>SUBTOTAL</Heading>
-      <Text total>₹ 7389</Text>
-      </TotalAmount>
-      <Button disabled={loading} onClick={loadRazorpay}>PROCEED TO CHECKOUT</Button>
-      <Text reset>Reset Cart</Text>
+          </Items>
+        ))}
+        <TotalAmount>
+          <Heading total>SUBTOTAL</Heading>
+          <Text total>₹ 7389</Text>
+        </TotalAmount>
+        <Button disabled={loading} onClick={loadRazorpay}>
+          PROCEED TO CHECKOUT
+        </Button>
+        <Text reset>Reset Cart</Text>
       </>
     </Wrapper>
   );

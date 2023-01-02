@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+
 
 const Wrapper = styled.div`
   position: absolute;
@@ -14,13 +16,14 @@ const Wrapper = styled.div`
 `;
 const Heading = styled.h2`
   color: gray;
-  margin: 0;
+  margin-top: 0;
   font-size: 1.2rem;
 `;
 const Items = styled.div`
   display: flex;
   gap: 8px;
-  margin: 10px 0;
+  margin: 20px 0;
+  border: 1px solid gray;
 `;
 const Title = styled.h4`
   margin: 0;
@@ -52,8 +55,7 @@ const Button = styled.button`
   background-color: #2879fe;
   border: none;
   color: white;
-  width: fit-content;
-  padding:8px 15px;
+  height: 30px;
   font-weight: bold;
   cursor: pointer;
   border-radius: 2px;
@@ -91,7 +93,7 @@ const WishList = () => {
     <Wrapper className="wishListcontainer">
       <Heading>Products in your WishList</Heading>
       {wishlists.map((wish) => (
-          <>
+          
         <Items key={wish.id}>
           <Img src={wish.images[1]} />
           <Box>
@@ -99,14 +101,19 @@ const WishList = () => {
             <Box desc>
               <div>
                 <Text>{wish.desc.substring(0, 100)}</Text>
+                <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+
                 <Button>MOVE TO CART</Button>
+                <DeleteOutlineIcon  className="remove" />
+                </div>
+
               </div>
             </Box>
           </Box>
         </Items>
-         <hr />
-        </>
+        
       ))}
+      <Text reset>Reset Cart</Text>
     </Wrapper>
   );
 };

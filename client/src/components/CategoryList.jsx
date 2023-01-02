@@ -4,7 +4,7 @@ import Card from "./Card";
 
 const Wrapper=styled.div`
     display: flex;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
     flex-wrap: wrap;
 `
@@ -56,7 +56,6 @@ const CategoryList = () => {
         "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
       ],
     },
-    ,
     {
       id: 5,
       category:"children",
@@ -68,7 +67,6 @@ const CategoryList = () => {
         "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
       ],
     },
-    ,
     {
       id: 6,
       category:"children",
@@ -80,7 +78,6 @@ const CategoryList = () => {
         "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
       ],
     },
-    ,
     {
       id: 7,
       category:"men",
@@ -92,7 +89,6 @@ const CategoryList = () => {
         "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
       ],
     },
-    ,
     {
       id: 8,
       category:"women",
@@ -104,7 +100,6 @@ const CategoryList = () => {
         "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
       ],
     },
-    ,
     {
       id: 9,
       category:"men",
@@ -113,10 +108,9 @@ const CategoryList = () => {
       strike: 987,
       images: [
         "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
+        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg"
       ],
     },
-    ,
     {
       id: 10,
       category:"children",

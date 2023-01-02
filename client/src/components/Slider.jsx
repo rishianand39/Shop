@@ -52,7 +52,6 @@ const Slider = () => {
 
     const handleSlide=(value)=>{
         let last=SliderData.length-1;
-        console.log(last, currentSlide)
         if(currentSlide===last && value===+1){
             setCurrentSlide(0)
         }else if(currentSlide===0 && value===-1){
