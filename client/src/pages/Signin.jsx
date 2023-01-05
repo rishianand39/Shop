@@ -1,5 +1,8 @@
 import { useState } from "react";
+import {Link} from "react-router-dom"
 import styled from "styled-components"
+import {useSelector, useDispatch} from "react-redux"
+import { signin } from "../redux/auth/action";
 
 const Container = styled.div`
   width: 100%;
@@ -59,7 +62,7 @@ const Button = styled.button`
 const Error=styled.span`
   color:red;
 `
-const Link = styled.a`
+const Text = styled.div`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
@@ -67,24 +70,43 @@ const Link = styled.a`
 `;
 
 const Login = () => {
+  const auth= useSelector((state)=>state.auth)
+  const dispatch=useDispatch()
+  const [user,setUser]=useState({
+    username:"",
+    password:""
+  })
 
-  const [error,setError]=useState(false)
-  const [username,setUsername]=useState("")
-  const [password,setPassword]=useState("")
+  // HANDLE INPUTS
+  const handleInputs=(e)=>{
+    setUser({
+      ...user,
+      [e.target.name]:e.target.value
+    })
+  }
 
 
+  // SUBMIT SIGN IN FORM
+const handleSubmit=(e)=>{
+  e.preventDefault()
+  dispatch(signin(user))
+}
 
   return (
     <Container>
     <Wrapper>
       <Title>SIGN IN</Title>
       <Form>
-        <Input onChange={(e)=>setUsername(e.target.value)} placeholder="username" />
-        <Input onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="password" />
-        <Button>LOGIN</Button>
-        {error && <Error>Something went wrong...</Error>}
-        <Link>DO NOT YOU REMEMBER THE PASSWORD</Link>
-        <Link>CREATE A NEW ACCOUNT</Link>
+        <Input onChange={handleInputs} placeholder="username" name="username"/>
+        <Input onChange={handleInputs} type="password" placeholder="password" name="password" />
+        <Button onClick={handleSubmit} disabled={auth.isLoading}>LOGIN</Button>
+        {auth.isFailure && <Error>{auth.message}</Error>}
+        <Text>
+        <Link to="/" className="links">DO NOT YOU REMEMBER THE PASSWORD</Link>
+        </Text>
+        <Text>
+        <Link to="/signup" className="links">CREATE A NEW ACCOUNT</Link>
+        </Text>
       </Form>
     </Wrapper>
   </Container>

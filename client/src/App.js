@@ -11,6 +11,8 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Product from "./pages/Product";
 import Products from "./pages/Products";
+import Learning from "./pages/Learning";
+import ErrorPage from "./pages/ErrorPage"
 
 const Layout=()=>{
   return(
@@ -25,10 +27,15 @@ const router=createBrowserRouter([
   {
     path:"/",
     element:<Layout />,
+    errorElement:<ErrorPage />,
     children:[
       {
         path:"/",
         element:<Home />
+      },
+      {
+        path:"/learning",
+        element:<Learning />
       },
       {
         path:"/signup",
