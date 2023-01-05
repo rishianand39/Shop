@@ -14,5 +14,5 @@ export const sendToken = (res, user, message) => {
     expires: new Date(Date.now() + ((((60 * 1000) * 60) * 24) * process.env.COOKIE_EXPIRE)), // in days
   };
  
-  return res.status(200).cookie("token", token, options).json(message);
+  //  res.cookie("token", token, options)
 };

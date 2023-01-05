@@ -26,10 +26,11 @@ router.post("/signup", async (req, res) => {
     });
     let user=await newUser.save();
       // sendemail
-      await sendMail(req.body.email,"verify your account", `Your OTP is ${otp}. It will expire in ${process.env.OTP_EXPIRE} min. Please verify your OTP`);
+      // await sendMail(req.body.email,"verify your account", `Your OTP is ${otp}. It will expire in ${process.env.OTP_EXPIRE} min. Please verify your OTP`);
       // sendtoken
-      sendToken(res, user, `Otp is sent on your email and it will expire in ${process.env.OTP_EXPIRE} min. Please verify your OTP.`);
-    
+      // sendToken(res, user, `Otp is sent on your email and it will expire in ${process.env.OTP_EXPIRE} min. Please verify your OTP.`);
+    // return res.status(200).json(`Otp is sent on your email and it will expire in ${process.env.OTP_EXPIRE} min. Please verify your OTP.`)
+    return res.status(200).json("Account created successfully")
   } catch (error) {
     return res.status(500).json(error.message);
   }
@@ -57,14 +58,16 @@ router.post("/signin", async (req, res) => {
     } 
 
     // sendMail
-    let otp=generateOtp();
-    let otpExpireTime=(Date.now() + ((60 * 1000) * process.env.OTP_EXPIRE)) 
-    user.otp=otp;
-    user.otp_expiry=otpExpireTime;
+    // let otp=generateOtp();
+    // let otpExpireTime=(Date.now() + ((60 * 1000) * process.env.OTP_EXPIRE)) 
+    // user.otp=otp;
+    // user.otp_expiry=otpExpireTime;
 
-    await user.save();
-    await sendMail(user.email, "SignIn Attempt", `Your OTP is ${otp} and it will be expired in next ${process.env.OTP_EXPIRE} min. If it is not done by you please contact us or change your password.`)
-     sendToken(res, user, `OTP sent to your email and it will be expired in next ${process.env.OTP_EXPIRE} min. Please verify`)
+    // await user.save();
+    // await sendMail(user.email, "SignIn Attempt", `Your OTP is ${otp} and it will be expired in next ${process.env.OTP_EXPIRE} min. If it is not done by you please contact us or change your password.`)
+    //  sendToken(res, user, `OTP sent to your email and it will be expired in next ${process.env.OTP_EXPIRE} min. Please verify`)
+
+    return res.status(200).json(user)
   } catch (error) {
     return res.status(400).json(error.message);
   }
