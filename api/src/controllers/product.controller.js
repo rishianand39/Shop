@@ -11,8 +11,8 @@ router.get("/", async (req, res) => {
     let queryObj = req.query;
     let limit=req.query.limit || 15;
 
-    let excudedFields = ["page", "sort", "limit"];
-    excudedFields.forEach((el) => delete queryObj[el]);
+    // let excudedFields = ["page", "sort", "limit"];
+    // excudedFields.forEach((el) => delete queryObj[el]);
 
     //  ADVANCE FILTER
     // {category: { 'in': [ 'women', 'men' ] },price: { 'gte': '32134' }, brand: 'puma'}
