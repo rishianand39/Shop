@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import {useSelector} from "react-redux"
 import styled from "styled-components";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
@@ -41,20 +41,19 @@ const ButtonCont = styled.div`
   margin: 10px 0;
 `;
 const Button = styled.button`
-  background-color: #2879fe;
-  border: none;
-  color: white;
   width: 100px;
-  height: 35px;
-  font-weight: bold;
+  border: none;
+  padding: 12px 20px;
+  background-color: #2879fe;
+  color: white;
   cursor: pointer;
-  border-radius: 2px;
 `;
 const Account = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const auth=useSelector((store)=>store.auth)
+
   return (
     <>
-      {loggedIn ? (
+      {auth.user ? (
         <Wrapper className="accountcontainer">
           <Box>
             <Link className="links" to="/orders">

@@ -61,12 +61,12 @@ const Button=styled.button`
   cursor: pointer;
   border-radius: 2px;
 `
-const Card = ({ id, category, title, strike, price, images, isNew }) => {
+const Card = ({ id, category, title, strike, price, image, isNew }) => {
   return (
     <Wrapper>
       <Top>
-        <Img className="firstImage" src={images[0]} alt="" />
-        <Img className="secondImage" src={images[1]} alt="" />
+        <Img className="firstImage" src={image[0]} alt="" />
+        <Img className="secondImage" src={image[1]} alt="" />
         {isNew && <NewSeason>New Season</NewSeason>}
       </Top>
       <Bottom>

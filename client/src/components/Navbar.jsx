@@ -73,10 +73,8 @@ const InputHolder=styled.div`
 `;
 const Input=styled.input`
   width: 60%;
-  height: 40px;
-  padding: 10px;
-  font-size: 1.2rem;
-  outline: none;
+  margin:10px 0px;
+padding:10px;
 `;
 const Navbar = () => {
   const [cartOpen,setCartOpen]=useState(false);

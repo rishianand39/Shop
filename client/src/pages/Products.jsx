@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useParams,useSearchParams } from "react-router-dom";
+import {useSearchParams } from "react-router-dom";
 import CategoryList from "../components/CategoryList";
 
 
@@ -43,14 +43,12 @@ const Img = styled.img`
 `;
 
 const Products = () => {
-  const categoryId = useParams().id;
-  const [maxPrice, setMaxPrice] = useState(1000);
+  const [maxPrice, setMaxPrice] = useState(1000000);
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [categoryValue,setCategoryValue] = useState(new Set([]))
+  const [categoryValue,setCategoryValue] = useState(new Set(searchParams.getAll("category")))
 
-
-  
+  // FILTER CATEGORY
   const handleCheckbox=(e)=>{
     setCategoryValue(pre=>{
       if(pre?.has(e.target.value)){
@@ -63,12 +61,14 @@ const Products = () => {
         ])
       }
     })
-
+  }
+  const handlePrice=(e)=>{
+    setMaxPrice(e.target.value)
   }
 
   useEffect(()=>{
-    setSearchParams({category: [...categoryValue]},{replace:true})
-  },[categoryValue, setCategoryValue])
+    setSearchParams({category: [...categoryValue],'price[lte]': maxPrice})
+  },[categoryValue, setCategoryValue,setSearchParams,maxPrice])
 
 
   return (
@@ -113,7 +113,7 @@ const Products = () => {
               type="range"
               max="10000"
               value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
+              onChange={handlePrice}
             />
             <span>₹{maxPrice}</span>
           </InputWrapper>
@@ -158,7 +158,7 @@ const Products = () => {
           />
         </Banner>
         <div>
-          <CategoryList />
+          <CategoryList categoryValue={categoryValue} maxPrice={maxPrice} sort={sort}/>
         </div>
       </Right>
     </Wrapper>

@@ -46,11 +46,11 @@ const router=createBrowserRouter([
         element:<Signin />
       },
       {
-        path:"/products/:category",
+        path:"/products/",
         element:<Products />
       },
       {
-        path:"/products/:category/:id",
+        path:"/products/:id",
         element:<Product />
       }
     ]

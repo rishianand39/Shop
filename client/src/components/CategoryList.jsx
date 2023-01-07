@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useLocation} from "react-router-dom";
 import styled from "styled-components";
 import Card from "./Card";
 
@@ -8,126 +10,33 @@ const Wrapper=styled.div`
     justify-content: center;
     flex-wrap: wrap;
 `
-const CategoryList = () => {
-  let products = [
-    {
-      id: 1,
-      category:"men",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-      isNew: true,
-    },
-    {
-      id: 2,
-      category:"women",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-      isNew: true,
-    },
-    {
-      id: 3,
-      category:"men",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-    },
-    {
-      id: 4,
-      category:"women",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-    },
-    {
-      id: 5,
-      category:"children",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-    },
-    {
-      id: 6,
-      category:"children",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-    },
-    {
-      id: 7,
-      category:"men",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-    },
-    {
-      id: 8,
-      category:"women",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-    },
-    {
-      id: 9,
-      category:"men",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg"
-      ],
-    },
-    {
-      id: 10,
-      category:"children",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-    },
-    
-  ];
+const CategoryList = ({categoryValue,maxPrice,sort}) => {
+  const [products, setProducts]=useState([])
+  const location = useLocation()
+  // eslint-disable-next-line
+  const [error,setError]=useState(false)
+
+  
+
+
+  useEffect(()=>{
+    const fetchProducts=async()=>{
+      try {
+        let result=await axios.get(`http://localhost:8000/api/product${location.search}`)
+        setProducts(result.data)
+      } catch (error) {
+        setError(true)
+      }
+    }
+    fetchProducts()
+  },[location])
+
+
   return (
     <Wrapper>
+      {products.length===0 && <div>Sorry No Product available</div>}
       {products.map((product) => (
-        <Link to={`${product.id}`} className="links" key={product.id}>
+        <Link to={`${product._id}`} className="links" key={product._id}>
         <Card {...product}  />
         </Link>
       ))}

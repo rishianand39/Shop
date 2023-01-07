@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import Card from "./Card";
+import { useEffect, useState } from "react";
 const Wrapper = styled.div`
   width: 80vw;
   display: flex;
@@ -25,69 +27,46 @@ const Bottom = styled.div`
   gap: 50px;
 `;
 const FeatureProducts = ({ type }) => {
-  let products = [
-    {
-      id: 1,
-      category: "men",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-      isNew: true,
-    },
-    {
-      id: 2,
-      category: "men",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-      isNew: true,
-    },
-    {
-      id: 3,
-      category: "men",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-    },
-    {
-      id: 4,
-      category: "men",
-      title: "Diverse Men Casual Shirt",
-      price: 549,
-      strike: 987,
-      images: [
-        "https://m.media-amazon.com/images/I/512pBZ7L-JL._AC_UL320_.jpg",
-        "https://m.media-amazon.com/images/I/616OsVbedXL._UY550_.jpg",
-      ],
-    },
-  ];
+  const [products, setProducts] = useState([]);
+
+  // FETCH TOP 5 PRODUCTS BASED ON POPULARITY
+  const fetchProduct = async () => {
+    try {
+      let products = await axios.get(
+        "http://localhost:8000/api/product?popularity[gt]=6&limit=4"
+      );
+      setProducts(products.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
   return (
     <Wrapper>
       <Top>
         <Heading>{type} Products</Heading>
         <Description>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla illo
-          quis totam tempore. Alias tempora quae dolor perferendis, numquam
-          quidem omnis nam, eaque laboriosam laborum repellendus fugit vel?
-          Corporis, consequatur.
+          These are tending these days on our website. Go and check it out. Add
+          it to your cart or wishlist them else you will lose it. Pay on
+          delivery available. Ecomm is the largest ecommerce in the world and so
+          you have access to world class products.Enjoy the hassle-free
+          experience as you shop comfortably from your home or your workplace.
+          You can also shop for your friends, family and loved-ones and avail
+          our gift services for special occasions.
         </Description>
       </Top>
       <Bottom>
         {products.map((product) => (
-          <Link to={`products/${product.category}/${product.id}`} className="links" key={product.id}>
-          <Card {...product} />
+          <Link
+            to={`products/${product._id}`}
+            className="links"
+            key={product.id}
+          >
+            <Card {...product} />
           </Link>
         ))}
       </Bottom>
