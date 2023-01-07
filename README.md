@@ -1,8 +1,6 @@
 # Shop
 Online shopping  destination for men, women, children. Wide category of products available.
 
-# Unsplash Clone
-
 
  It was a solo project.
 
