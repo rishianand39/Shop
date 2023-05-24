@@ -17,12 +17,12 @@ const CategoryList = ({categoryValue,maxPrice,sort}) => {
   const [error,setError]=useState(false)
 
   
-
+console.log(process.env.REACT_APP_API_BASE_URL, 'iefdifeknfisf')
 
   useEffect(()=>{
     const fetchProducts=async()=>{
       try {
-        let result=await axios.get(`http://localhost:8000/api/product${location.search}`)
+        let result=await axios.get(`${process.env.REACT_APP_API_BASE_URL}/product${location.search}`)
         setProducts(result.data)
       } catch (error) {
         setError(true)

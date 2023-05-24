@@ -38,7 +38,7 @@ export const signin_success=(data)=>{
 export const createAccount=(user)=>async(dispatch)=>{
     dispatch(loading())
     try {
-      let result= await axios.post("http://localhost:8000/api/auth/signup",{
+      let result= await axios.post("http://localhost:8080/api/auth/signup",{
         username:user.username,
         first_name:user.first_name,
         last_name:user.last_name,
@@ -56,7 +56,7 @@ export const createAccount=(user)=>async(dispatch)=>{
 export const signin=(user)=>async(dispatch)=>{
     dispatch(loading())
     try {
-        let result= await axios.post("http://localhost:8000/api/auth/signin",{
+        let result= await axios.post("http://localhost:8080/api/auth/signin",{
             username:user.username,
             password:user.password
            })

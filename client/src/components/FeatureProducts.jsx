@@ -33,7 +33,7 @@ const FeatureProducts = ({ type }) => {
   const fetchProduct = async () => {
     try {
       let products = await axios.get(
-        "http://localhost:8000/api/product?popularity[gt]=6&limit=4"
+        `${process.env.REACT_APP_API_BASE_URL}/product?popularity[gt]=6&limit=4`
       );
       setProducts(products.data);
     } catch (error) {

@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import connect from "./configs/db.js";
 dotenv.config();
 
+
 const PORT =process.env.PORT || 8000;
 app.listen(PORT,async()=>{
     try {

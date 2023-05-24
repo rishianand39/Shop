@@ -10,7 +10,7 @@ const ProductSchema= new mongoose.Schema({
     strike:{type:Number, required:true},
     stock:{type:Number, required:false, default:10},
     description:{type:String, required:true,minlength: 5, maxlength: 200},
-    isNew:{type:Boolean, required:false, default:false},
+    NewProduct:{type:Boolean, required:false, default:false},
     popularity:{type:Number, required:false, min:0,max:10, default:4},
 
 },{
