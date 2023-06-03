@@ -1,0 +1,13 @@
+.slick-dots li{
+    width: 50px !important;
+    height:50px !important;
+}
+.slick-dots .slick-active{
+    border: 1px solid rgb(200, 34, 184);
+    width: 60px !important;
+    height:60px !important;
+    object-fit: fit-contents;
+}
+.slick-dots .thumbnail-image{
+    object-fit: cover;
+}

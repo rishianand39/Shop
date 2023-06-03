@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Categories from "../components/Categories";
 import FeatureProducts from "../components/FeatureProducts";
-import Slider from "../components/Slider";
 import Subscribe from "../components/Subscribe";
+import ReactSlickSlider from "../components/Slider";
 
 const Wrapper=styled.div`
   
@@ -10,7 +10,7 @@ const Wrapper=styled.div`
 const Home = () => {
   return (
     <Wrapper>
-      <Slider />
+      <ReactSlickSlider />
       <FeatureProducts type="Trending"/>
       <Categories />
       <FeatureProducts type="Featured" />
