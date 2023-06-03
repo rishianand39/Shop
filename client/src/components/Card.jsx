@@ -1,6 +1,6 @@
 import styled from "styled-components";
 const Wrapper = styled.div`
-  width: 200px;
+  width: 250px;
   height: 430px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 `;
@@ -10,16 +10,24 @@ const Top = styled.div`
   height: 70%;
   &:hover .secondImage {
     z-index: 2;
+    opacity: 1;
+  }
+
+  &:hover .firstImage {
+    opacity: 0;
   }
 `;
 const Img = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   background-position: center;
   position: absolute;
   &.firstImage {
     z-index: 1;
+  }
+  &.secondImage {
+    opacity: 0;
   }
 `;
 const Bottom = styled.div`
@@ -27,6 +35,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 gap: 5px;
+height: 30%;
 `
 const Title = styled.p`
   font-size: 16px;

@@ -157,9 +157,7 @@ const Products = () => {
             alt="banner"
           />
         </Banner>
-        <div>
           <CategoryList categoryValue={categoryValue} maxPrice={maxPrice} sort={sort}/>
-        </div>
       </Right>
     </Wrapper>
   );
