@@ -33,13 +33,17 @@ const Img = styled.img`
 const Bottom = styled.div`
 display: flex;
 flex-direction: column;
-justify-content: center;
+justify-content: space-between;
 gap: 5px;
 height: 30%;
 `
 const Title = styled.p`
   font-size: 16px;
   font-weight: 500;
+  margin: 8px 0 0 0;
+  max-height: 36%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const Price = styled.div`
   display: flex;

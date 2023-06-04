@@ -11,6 +11,9 @@ import Account from "./Account";
 import WishList from "./WishList";
 import Announcement from "./Announcement";
 import { header_bg_color, light_blue } from "../styles/variables";
+import { useEffect } from "react";
+import uk from "../images/uk.png"
+
 
 const Header = styled.header`
   background-color: ${header_bg_color};
@@ -39,9 +42,12 @@ const Box = styled.div`
   gap: ${(props) => (props.icons ? "15px" : "0")};
   & .icon {
     cursor: pointer;
-    :hover{
-      color:${light_blue};
+    :hover {
+      color: ${light_blue};
     }
+  }
+  & .active_icon{
+    color: ${light_blue};
   }
   &:focus {
     border: 1px solid red;
@@ -92,6 +98,11 @@ const Navbar = () => {
   const [wishOpen, setWishOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
+  const removeActiveIcon=()=>{
+    let current_active_icon=document?.querySelector(".active_icon")
+    current_active_icon?.classList.remove("active_icon")
+  }
+
   document.addEventListener("click", (event) => {
     if (cartOpen) {
       if (
@@ -131,6 +142,18 @@ const Navbar = () => {
     current_active_tab.classList.remove("active");
     element.classList.add("active");
   };
+  // Active tab
+  const handleIconActive = (element) => {
+    let current_active_tab = document.querySelector(".active_icon");
+    current_active_tab?.classList?.remove("active_icon");
+    element?.classList.add("active_icon");
+  };
+
+    useEffect(()=>{
+      if(!(cartOpen || wishOpen || acOpen || searchOpen)){
+        handleIconActive()
+      }
+    },[cartOpen, wishOpen, acOpen, searchOpen])
 
   return (
     <Header>
@@ -138,7 +161,7 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <Box>
-            <Img src="/img/uk.png" alt="language flag" />
+            <Img src={uk} alt="language flag" />
             <KeyboardArrowDownIcon />
           </Box>
           <Box
@@ -223,11 +246,13 @@ const Navbar = () => {
             <SearchIcon
               className="icon search"
               onClick={(event) => {
+                handleIconActive(event.target);
                 setSearchOpen((pre) => !pre);
               }}
             />
             <PersonOutlineIcon
               onClick={(event) => {
+                handleIconActive(event.target);
                 setAcOpen((pre) => !pre);
               }}
               className="icon account"
@@ -235,12 +260,14 @@ const Navbar = () => {
             <FavoriteBorderIcon
               className="icon wishlist"
               onClick={(event) => {
+                handleIconActive(event.target);
                 setWishOpen((pre) => !pre);
               }}
             />
             <Box
               className="icon cart"
               onClick={(event) => {
+                handleIconActive(event.target);
                 setCartOpen((pre) => !pre);
               }}
             >

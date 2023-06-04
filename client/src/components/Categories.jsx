@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { useNavigate} from "react-router-dom";
-
-
-
+import electronics from "../images/electronics.jpg"
+import sale from "../images/sale.avif";
+import men from "../images/men.avif"
+import women from "../images/women.avif"
+import shoes from "../images/shoes.avif"
+import newSeason from "../images/new-season.avif"
 const Wrapper = styled.div`
   width: 80vw;
   margin: 40px auto;
@@ -47,7 +50,7 @@ const Categories = () => {
   return (
     <Wrapper>
       <Box gridarea="sale">
-        <Img src="https://images.unsplash.com/photo-1603570388466-eb4fe5617f0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+        <Img src={sale} />
           <Button onClick={()=>{
             navigate({
               pathname:"/products",
@@ -56,7 +59,7 @@ const Categories = () => {
           }}>SALE</Button>
       </Box>
       <Box gridarea="newseason">
-        <Img src="https://images.unsplash.com/photo-1588516903720-8ceb67f9ef84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=744&q=80" />
+        <Img src={newSeason} />
         <Button onClick={()=>{
             navigate({
               pathname:"/products",
@@ -65,7 +68,7 @@ const Categories = () => {
           }}>NEW SEASON</Button>
       </Box>
       <Box gridarea="men">
-        <Img src="https://images.unsplash.com/photo-1560087637-bf797bc7796a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+        <Img src={men} />
         <Button onClick={()=>{
             navigate({
               pathname:"/products",
@@ -74,7 +77,7 @@ const Categories = () => {
           }}>MEN</Button>
       </Box>
       <Box gridarea="accessories">
-        <Img src="https://images.unsplash.com/photo-1508341591423-4347099e1f19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+        <Img src={electronics} />
         <Button onClick={()=>{
             navigate({
               pathname:"/products",
@@ -83,7 +86,7 @@ const Categories = () => {
           }}>ELECTRONICS</Button>
       </Box>
       <Box gridarea="women">
-        <Img src="https://plus.unsplash.com/premium_photo-1664202526793-fca03a9cab29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2hvZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" />
+        <Img src={women} />
         <Button onClick={()=>{
             navigate({
               pathname:"/products",
@@ -92,7 +95,7 @@ const Categories = () => {
           }}>WOMEN</Button>
       </Box>
       <Box gridarea="shoes">
-        <Img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHNob2VzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" />
+        <Img src={shoes} />
         <Button onClick={()=>{
             navigate({
               pathname:"/products",
