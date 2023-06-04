@@ -46,3 +46,35 @@ export const Next = styled.div`
     color: #fff;
   }
 `;
+
+// Announcement
+export const AnnouncementContainer = styled.div`
+  border: 1px solid white;
+  padding: 5px 0;
+  & p {
+    color: #2879fe;
+    font-size: 1.2rem;
+    margin: 0;
+    text-align: center;
+    animation: animate 1.5s linear infinite;
+    @keyframes animate {
+      0% {
+        opacity: 0;
+      }
+      25%{
+        opacity: 0.2;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+      75%{
+        opacity: 0.7;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+  }
+`;

@@ -1,9 +1,11 @@
 :root{
     --btn-color1:#008080;
     --btn-color2:#2879fe;
+    --body-color:#ebebeb
 }
 body{
     margin: 0;
+    background-color:var(--body-color) ;
 }
 html{
     scroll-behavior: smooth;
