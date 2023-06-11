@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BalanceIcon from "@mui/icons-material/Balance";
-import { useSearchParams } from "react-router-dom";
-
+import ReactImageMagnify from "react-image-magnify";
 const Wrapper = styled.div`
   display: flex;
   width: 95vw;
@@ -24,7 +23,8 @@ const SmallImgCon = styled.div`
 `;
 const MainImgCont = styled.div`
   flex: 4;
-  height: 80vh;
+  height: 70vh;
+
 `;
 const Img = styled.img`
   width: ${(props) => (props.previewImg ? "150px" : "100%")};
@@ -42,9 +42,9 @@ const Title = styled.h2`
   margin-top: 0;
 `;
 const Text = styled.p`
-font-weight: ${props=>props.price && "bold"};
-font-size: ${props=>props.price && "1.5rem"};
-color: ${props=>props.price && "#2879fe"};
+  font-weight: ${(props) => props.price && "bold"};
+  font-size: ${(props) => props.price && "1.5rem"};
+  color: ${(props) => props.price && "#2879fe"};
 `;
 const Box = styled.div`
   display: flex;
@@ -74,8 +74,8 @@ const AddToCart = styled.button`
   margin: 20px 0;
   cursor: pointer;
 `;
-const Buy= styled.button`
-   background-color: #2879fe;
+const Buy = styled.button`
+  background-color: #2879fe;
   color: white;
   border: none;
   display: flex;
@@ -86,8 +86,8 @@ const Buy= styled.button`
   width: 200px;
   height: 45px;
   margin: 20px 0;
-  cursor: pointer; 
-`
+  cursor: pointer;
+`;
 const Desc = styled.div`
   margin-top: 100px;
 `;
@@ -105,6 +105,7 @@ const Product = () => {
       url: "https://images.unsplash.com/photo-1670607615480-1b235656deda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1NHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=60",
     },
   ];
+
   return (
     <Wrapper>
       <Left>
@@ -119,8 +120,29 @@ const Product = () => {
             />
           ))}
         </SmallImgCon>
-        <MainImgCont>
-          <Img mainImg src={`${images[selectedImg - 1].url}`} alt="" />
+        <MainImgCont className="productContainer">
+          <ReactImageMagnify
+            {...{
+              smallImage: {
+                alt: "",
+                src:`${images[selectedImg - 1].url}`,
+                width:560,
+                height:510
+                
+              },
+              largeImage: {
+                src:`${images[selectedImg - 1].url}`,
+                width: 1200,
+                height: 1800,
+              },
+              imageStyle:{
+                objectFit:"contain",
+                width:"100%",
+                height:"100%"
+              }
+            }}
+          />
+          {/* <Img mainImg src={`${images[selectedImg - 1].url}`} alt="" /> */}
         </MainImgCont>
       </Left>
       <Right>
@@ -141,10 +163,10 @@ const Product = () => {
           <Button onClick={() => setQuantity((pre) => pre + 1)}>+</Button>
         </Box>
         <Box>
-        <AddToCart>
-          <AddShoppingCartIcon /> ADD TO CART
-        </AddToCart>
-        <Buy>BUY NOW</Buy>
+          <AddToCart>
+            <AddShoppingCartIcon /> ADD TO CART
+          </AddToCart>
+          <Buy>BUY NOW</Buy>
         </Box>
         <Box>
           <Button>
