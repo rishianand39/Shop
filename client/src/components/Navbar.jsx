@@ -27,7 +27,7 @@ const Wrapper = styled.nav`
   padding: 10px 30px;
   display: flex;
   justify-content: space-between;
-  height: 80px;
+  height: 70px;
 `;
 const Left = styled.div`
   display: flex;

@@ -14,12 +14,13 @@ const Left = styled.div`
   gap: 15px;
   justify-content: space-between;
   flex: 1;
+  position: sticky;
+  top: 118px;
+  height:fit-content;
 `;
 const SmallImgCon = styled.div`
   flex: 1;
   height: fit-content;
-  position: sticky;
-  top: 0;
 `;
 const MainImgCont = styled.div`
   flex: 4;

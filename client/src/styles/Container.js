@@ -53,7 +53,7 @@ export const AnnouncementContainer = styled.div`
   padding: 5px 0;
   & p {
     color: #2879fe;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 0;
     text-align: center;
     animation: animate 1.5s linear infinite;

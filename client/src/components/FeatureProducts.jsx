@@ -3,6 +3,12 @@ import axios from "axios";
 import styled from "styled-components";
 import Card from "./Card";
 import { useEffect, useState } from "react";
+import Slider from "react-slick";
+import WestIcon from '@mui/icons-material/West';
+import EastIcon from '@mui/icons-material/East';
+import { Next, Pre } from "../styles/Container";
+
+
 const Wrapper = styled.div`
   width: 80vw;
   display: flex;
@@ -25,15 +31,54 @@ const Bottom = styled.div`
   display: flex;
   justify-content: center;
   gap: 50px;
+  border: 1px solid red;
 `;
 const FeatureProducts = ({ type }) => {
   const [products, setProducts] = useState([]);
 
+  const PrevArrow = (props) => (
+    <Pre
+      onClick={props.onClick}
+      title="Previous"
+    >
+      <WestIcon />
+    </Pre>
+  );
+  
+  const NextArrow = (props) => (
+    <Next
+      onClick={props.onClick}
+      title="next"
+    >
+      <EastIcon />
+    </Next>
+  );
+
+  let settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 2,
+    autoplaySpeed: 3000,
+    autoplay: true,
+    arrows: true,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+    centerMode:true,
+    // customPaging:function(i) {
+    //   return (
+    //     <a>
+    //       <img className="thumbnail-image" width="100%" height="100%" src={products[i].image} />
+    //     </a>
+    //   );
+    // },
+};
   // FETCH TOP 5 PRODUCTS BASED ON POPULARITY
   const fetchProduct = async () => {
     try {
       let products = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/product?popularity[gt]=6&limit=4`
+        `${process.env.REACT_APP_API_BASE_URL}/product?popularity[gt]=6&limit=10`
       );
       setProducts(products.data);
     } catch (error) {
@@ -59,17 +104,20 @@ const FeatureProducts = ({ type }) => {
           our gift services for special occasions.
         </Description>
       </Top>
-      <Bottom>
+      {/* <Bottom> */}
+        <Slider {...settings} >
+
         {products.map((product) => (
           <Link
-            to={`products/${product._id}`}
-            className="links"
-            key={product.id}
+          to={`products/${product._id}`}
+          className="links"
+          key={product.id}
           >
             <Card {...product} />
           </Link>
         ))}
-      </Bottom>
+        </Slider>
+      {/* </Bottom> */}
     </Wrapper>
   );
 };
