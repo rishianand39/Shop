@@ -13,8 +13,8 @@ const Wrapper = styled.div`
   width: 80vw;
   display: flex;
   flex-direction: column;
-  gap: 50px;
-  margin: 40px auto;
+  gap: 20px;
+  margin: 60px auto;
 `;
 const Top = styled.div`
   display: flex;
@@ -26,12 +26,6 @@ const Heading = styled.h1`
 const Description = styled.p`
   flex: 3;
   color: gray;
-`;
-const Bottom = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  border: 1px solid red;
 `;
 const FeatureProducts = ({ type }) => {
   const [products, setProducts] = useState([]);
@@ -55,7 +49,7 @@ const FeatureProducts = ({ type }) => {
   );
 
   let settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
@@ -66,13 +60,6 @@ const FeatureProducts = ({ type }) => {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
     centerMode:true,
-    // customPaging:function(i) {
-    //   return (
-    //     <a>
-    //       <img className="thumbnail-image" width="100%" height="100%" src={products[i].image} />
-    //     </a>
-    //   );
-    // },
 };
   // FETCH TOP 5 PRODUCTS BASED ON POPULARITY
   const fetchProduct = async () => {
@@ -104,7 +91,6 @@ const FeatureProducts = ({ type }) => {
           our gift services for special occasions.
         </Description>
       </Top>
-      {/* <Bottom> */}
         <Slider {...settings} >
 
         {products.map((product) => (
@@ -117,7 +103,6 @@ const FeatureProducts = ({ type }) => {
           </Link>
         ))}
         </Slider>
-      {/* </Bottom> */}
     </Wrapper>
   );
 };

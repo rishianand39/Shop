@@ -1,8 +1,13 @@
 import styled from "styled-components";
 const Wrapper = styled.div`
-  width: 250px;
-  height: 430px;
+  width: 260px;
+  height: 400px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  border-radius: 5px;
+  padding: 5px;
+  &:hover{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  }
 `;
 const Top = styled.div`
   display: flex;
@@ -73,6 +78,9 @@ const Button=styled.button`
   font-weight: bold;
   cursor: pointer;
   border-radius: 2px;
+  &:hover{
+    background-color: darkorange;
+  }
 `
 const Card = ({ id, category, title, strike, price, image, isNew }) => {
   return (
